@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JS Numbers table</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .even {
+            background-color: aqua;
+        }
+
+        .odd {
+            background-color: burlywood;
+        }
+
+        #tabel-container {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #main-form-inputs-container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #main-form-inputs-left {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Random Numbers Table</h1>
+    <form id="main-form">
+        <div id="main-form-inputs-container">
+            <div id="main-form-inputs-left">
+                <div>
+                    <label for="input-min">Min: </label><br>
+                    <input type="number" id="input-min" name="input-min">
+                </div>
+                <div>
+                    <label for="input-max">Max: </label><br>
+                    <input type="number" id="input-max" name="input-max">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label for="input-rows">Rows: </label><br>
+                    <input type="number" id="input-rows" name="input-rows">
+                </div>
+                <div>
+                    <label for="input-cols">Cols: </label><br>
+                    <input type="number" id="input-cols" name="input-cols">
+                </div>
+            </div>
+        </div>
+        <div id="tabel-container"></div>
+        <input type="submit" value="Click here">
+    </form>
+</body>
+
+<script>
+    "use strict";
+
+    function createTabel(min, max, rows, cols) {
+        let tabel = document.createElement("tabel");
+        var tabelBody = document.createElement('tbody');
+
+        for (let i = 0; i < rows; i++) {
+            let row = document.createElement('tr');
+            for (let j = 0; j < cols; j++) {
+                let td = document.createElement('td');
+                let value = Math.floor(Math.random() * max) + min;
+
+                if (value % 2 == 0) {
+                    td.setAttribute("class", "even");
+                } else {
+                    td.setAttribute("class", "odd");
+                }
+
+                td.appendChild(document.createTextNode(value));
+                row.appendChild(td);
+            }
+
+            tabelBody.appendChild(row);
+        }
+
+        tabel.appendChild(tabelBody);
+
+        let tabelContainer = document.getElementById("tabel-container");
+        tabelContainer.innerHTML = "";
+        document.getElementById("tabel-container").appendChild(tabel);
+    }
+
+    document.querySelector("#main-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        let form = document.forms["main-form"];
+
+        let min = parseInt(form["input-min"].value);
+        let max = parseInt(form["input-max"].value);
+
+        let rows = parseInt(form["input-rows"].value);
+        let cols = parseInt(form["input-cols"].value);
+
+        if (Number.isNaN(min) || Number.isNaN(max) || Number.isNaN(rows) || Number.isNaN(cols)) {
+            alert("Invalid input");
+        } else {
+            createTabel(min, max, rows, cols);
+        }
+    });
+</script>
+
+</html>
