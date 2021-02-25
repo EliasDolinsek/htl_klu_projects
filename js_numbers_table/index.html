@@ -76,7 +76,7 @@
             let row = document.createElement('tr');
             for (let j = 0; j < cols; j++) {
                 let td = document.createElement('td');
-                let value = Math.floor(Math.random() * max) + min;
+                let value = Math.floor(Math.random() * (max - min + 1)) + min;
 
                 if (value % 2 == 0) {
                     td.setAttribute("class", "even");
