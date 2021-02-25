@@ -27,6 +27,10 @@ public class Country implements Comparable<Country> {
     public int getArea() {
         return area;
     }
+    
+    public Object[] toArray() {
+    	return new Object[]{name, capital, new Integer(population), new Integer(area)};
+    }
 
     @Override
     public int compareTo(Country o) {
