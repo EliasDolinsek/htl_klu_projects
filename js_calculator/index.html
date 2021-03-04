@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head title="JS Calculator">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+        * {
+            font-family: 'Roboto', sans-serif;
+            --numpad-color: white;
+        }
+
+        button {
+            border-radius: 5px;
+            height: 40px;
+            border: 0;
+        }
+
+        #base-container {
+            margin: 20px;
+            padding: 10px 20px 10px 20px;
+            background-color: grey;
+        }
+
+        .numpad-button {
+            grid-area: "std-button";
+        }
+
+
+        .extended-numpad-button {
+            grid-area: "extended-button";
+        }
+
+        .num-button {
+            background-color: white;
+        }
+
+        #c-button {
+            background-color: red;
+        }
+
+        #ac-button {
+            background-color: red;
+        }
+
+        .num-operation-button {
+            background-color: lightgray;
+        }
+
+        #base-container {
+            max-width: 600px;
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 10px;
+            grid-template-areas: "std-button std-button std-button std-button std-button"
+                                 "std-button std-button std-button std-button std-button"
+                                 "std-button std-button std-button std-button std-button"
+                                 "std-button std-button std-button extended-button extended-button";
+        }
+
+        #four-items-buttons-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 2fr;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="base-container">
+        <input id="numbers-display" type="text" disabled>
+        <div>
+            <div class="buttons-container">
+                <!-- FIRST ROW -->
+                <button type="button" class="numpad-button num-button">7</button>
+                <button type="button" class="numpad-button num-button">8</button>
+                <button type="button" class="numpad-button num-button">9</button>
+                <button type="button" id="c-button" class="numpad-button" data-action="clear">C</button>
+                <button type="button" id="ac-button" class="numpad-button" data-action="reset">AC</button>
+                <!-- SECOND ROW -->
+                <button type="button" class="numpad-button num-button">4</button>
+                <button type="button" class="numpad-button num-button">5</button>
+                <button type="button" class="numpad-button num-button">6</button>
+                <button type="button" class="numpad-button num-operation-button key--operation" data-action="add">+</button>
+                <button type="button" class="numpad-button num-operation-button key--operation" data-action="subtract">-</button>
+                <!-- THIRD ROW -->
+                <button type="button" class="numpad-button num-button">1</button>
+                <button type="button" class="numpad-button num-button">2</button>
+                <button type="button" class="numpad-button num-button">3</button>
+                <button type="button" class="numpad-button num-operation-button key-operation" data-action="multiply">X</button>
+                <button type="button" class="numpad-button num-operation-button key--operation" data-action="divide">/</button>
+                <!-- FOURTH ROW -->
+                <button type="button" class="numpad-button num-button">0</button>
+                <button type="button" class="numpad-button num-button">.</button>
+                <button type="button" class="numpad-button num-button">+/-</button>
+                <button type="button" class="extended-numpad-button num-operation-button key--operation" data-action="calculate">=</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const keys = document.querySelector(".buttons-container");
+
+    let result = 0;
+    let value = "";
+
+    function handleNumberInput(key){
+        let num = key.innerHTML;
+        value += num;
+        displayValue();
+    }
+
+    function valueAsNum(){
+        return parseInt(value);
+    }
+
+    function displayResult(){
+        document.querySelector("#numbers-display").value = result;
+    }
+
+    function displayValue(){
+        document.querySelector("#numbers-display").value = value;
+    }
+
+    keys.addEventListener("click", function (e) {
+        if(e.target.matches("button")){
+            const key = e.target
+            const action = key.dataset.action
+            switch(action){
+                case "add": result += valueAsNum(); displayResult(); break;
+                case "subtract": result -= valueAsNum(); displayResult(); break;
+                case "multiply": result *= valueAsNum(); displayResult(); break;
+                case "divide": result /= valueAsNum(); displayResult(); break;
+                case "clear": value = ""; displayValue(); break;
+                case "reset": value = ""; result = 0; displayValue(); break;
+                case "calculate": displayResult(); break;
+                default: handleNumberInput(key); break;
+            }
+        }
+    });
+    console.log(keys);
+</script>
+</html>
