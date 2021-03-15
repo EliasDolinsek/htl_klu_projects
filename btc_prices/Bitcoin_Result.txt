@@ -1,0 +1,6 @@
+Number of analyzed values: 1805
+Lowest price: Datum: 2013-07-05 Price: 51.3€
+Highest price: Datum: 2017-12-16 Price: 16727.68€
+Price 10 days before lowest price: Datum: 2013-06-25 Price: 78.75€
+Price 10 days before highest price: Datum: 2017-12-06 Price: 11765.86€
+Average for year 2017: 3459.61€
