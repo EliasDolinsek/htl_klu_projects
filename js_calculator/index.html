@@ -65,81 +65,179 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 2fr;
         }
+
+        #numbers-display {
+            width: 100%;
+            display: block;
+            margin-bottom: 16px;
+            border-radius: 6px;
+            font-size: 2rem;
+            color: black;
+        }
     </style>
 </head>
 
 <body>
-    <div id="base-container">
-        <input id="numbers-display" type="text" disabled>
-        <div>
-            <div class="buttons-container">
-                <!-- FIRST ROW -->
-                <button type="button" class="numpad-button num-button">7</button>
-                <button type="button" class="numpad-button num-button">8</button>
-                <button type="button" class="numpad-button num-button">9</button>
-                <button type="button" id="c-button" class="numpad-button" data-action="clear">C</button>
-                <button type="button" id="ac-button" class="numpad-button" data-action="reset">AC</button>
-                <!-- SECOND ROW -->
-                <button type="button" class="numpad-button num-button">4</button>
-                <button type="button" class="numpad-button num-button">5</button>
-                <button type="button" class="numpad-button num-button">6</button>
-                <button type="button" class="numpad-button num-operation-button key--operation" data-action="add">+</button>
-                <button type="button" class="numpad-button num-operation-button key--operation" data-action="subtract">-</button>
-                <!-- THIRD ROW -->
-                <button type="button" class="numpad-button num-button">1</button>
-                <button type="button" class="numpad-button num-button">2</button>
-                <button type="button" class="numpad-button num-button">3</button>
-                <button type="button" class="numpad-button num-operation-button key-operation" data-action="multiply">X</button>
-                <button type="button" class="numpad-button num-operation-button key--operation" data-action="divide">/</button>
-                <!-- FOURTH ROW -->
-                <button type="button" class="numpad-button num-button">0</button>
-                <button type="button" class="numpad-button num-button">.</button>
-                <button type="button" class="numpad-button num-button">+/-</button>
-                <button type="button" class="extended-numpad-button num-operation-button key--operation" data-action="calculate">=</button>
-            </div>
+<div id="base-container">
+    <input id="numbers-display" type="text" disabled>
+    <div>
+        <div class="buttons-container">
+            <!-- FIRST ROW -->
+            <button type="button" class="numpad-button num-button">7</button>
+            <button type="button" class="numpad-button num-button">8</button>
+            <button type="button" class="numpad-button num-button">9</button>
+            <button type="button" id="c-button" class="numpad-button" data-action="clear">C</button>
+            <button type="button" id="ac-button" class="numpad-button" data-action="reset">AC</button>
+            <!-- SECOND ROW -->
+            <button type="button" class="numpad-button num-button">4</button>
+            <button type="button" class="numpad-button num-button">5</button>
+            <button type="button" class="numpad-button num-button">6</button>
+            <button type="button" class="numpad-button num-operation-button key--operation" data-action="add">+</button>
+            <button type="button" class="numpad-button num-operation-button key--operation" data-action="subtract">-
+            </button>
+            <!-- THIRD ROW -->
+            <button type="button" class="numpad-button num-button">1</button>
+            <button type="button" class="numpad-button num-button">2</button>
+            <button type="button" class="numpad-button num-button">3</button>
+            <button type="button" class="numpad-button num-operation-button key--operation" data-action="multiply">X
+            </button>
+            <button type="button" class="numpad-button num-operation-button key--operation" data-action="divide">/
+            </button>
+            <!-- FOURTH ROW -->
+            <button type="button" class="numpad-button num-button">0</button>
+            <button type="button" class="numpad-button num-button">.</button>
+            <button type="button" class="numpad-button num-button key--operation" data-action="plusMinus">+/-</button>
+            <button type="button" class="extended-numpad-button num-operation-button key--operation"
+                    data-action="calculate">=
+            </button>
         </div>
     </div>
+</div>
 </body>
 <script>
     const keys = document.querySelector(".buttons-container");
 
+    let action = "";
     let result = 0;
-    let value = "";
+    let previousInput = "";
+    let currentInput = "";
 
-    function handleNumberInput(key){
+    function handleNumberInput(key) {
         let num = key.innerHTML;
-        value += num;
+        if (num === "." && currentInput === "") {
+            num = "0."
+        }
+
+        currentInput += num;
         displayValue();
     }
 
-    function valueAsNum(){
-        return parseInt(value);
-    }
-
-    function displayResult(){
+    function displayResult() {
         document.querySelector("#numbers-display").value = result;
     }
 
-    function displayValue(){
-        document.querySelector("#numbers-display").value = value;
+    function displayValue() {
+        let valueToDisplay = currentInput;
+        if (currentInput === "" || currentInput === "-") {
+            valueToDisplay = "0" + valueToDisplay
+        }
+
+        document.querySelector("#numbers-display").value = valueToDisplay;
+    }
+
+    function inputAsFloat(input) {
+        let valueToParse = input;
+        if (valueToParse.startsWith(".")) {
+            valueToParse = "0" + valueToParse;
+        }
+
+        return parseFloat(valueToParse);
+    }
+
+    function handleCalculate() {
+        let valOne = inputAsFloat(previousInput);
+        let valTwo = inputAsFloat(currentInput);
+
+        switch (action) {
+            case "add":
+                result = valOne + valTwo;
+                break;
+            case "subtract":
+                result = valOne - valTwo;
+                break;
+            case "multiply":
+                result = valOne * valTwo;
+                break;
+            case "divide":
+                result = valOne / valTwo;
+                break;
+        }
+
+        previousInput = result.toString();
+        currentInput = "";
+        action = "";
+        displayResult();
+    }
+
+    function handleActionKeyPressed(code) {
+        if (previousInput !== "") {
+            handleCalculate();
+        } else {
+            previousInput = currentInput;
+            currentInput = "";
+            displayValue();
+        }
+
+        action = code;
+    }
+
+    function reset() {
+        result = 0;
+        currentInput = "";
+        previousInput = "";
+        displayValue();
+    }
+
+    function handlePlusMinus() {
+        if (currentInput.startsWith("-")) {
+            currentInput = currentInput.replace("-", "")
+        } else {
+            if (currentInput === "") {
+                currentInput = "-0" + currentInput;
+            } else {
+                currentInput = "-" + currentInput
+            }
+        }
+
+        displayValue();
     }
 
     keys.addEventListener("click", function (e) {
-        if(e.target.matches("button")){
+        if (e.target.matches("button")) {
             const key = e.target
-            const action = key.dataset.action
-            switch(action){
-                case "add": result += valueAsNum(); displayResult(); break;
-                case "subtract": result -= valueAsNum(); displayResult(); break;
-                case "multiply": result *= valueAsNum(); displayResult(); break;
-                case "divide": result /= valueAsNum(); displayResult(); break;
-                case "clear": value = ""; displayValue(); break;
-                case "reset": value = ""; result = 0; displayValue(); break;
-                case "calculate": displayResult(); break;
-                default: handleNumberInput(key); break;
+            const code = key.dataset.action;
+
+            if (code === "add") {
+                handleActionKeyPressed(code);
+            } else if (code === "subtract") {
+                handleActionKeyPressed(code);
+            } else if (code === "multiply") {
+                handleActionKeyPressed(code);
+            } else if (code === "divide") {
+                handleActionKeyPressed(code);
+            } else if (code === "clear") {
+                currentInput = "";
+                displayValue();
+            } else if (code === "reset") {
+                reset();
+            } else if (code === "calculate") {
+                handleCalculate();
+            } else if (code === "plusMinus") {
+                handlePlusMinus();
+            } else {
+                handleNumberInput(key);
             }
         }
     });
-    console.log(keys);
 </script>
 </html>
