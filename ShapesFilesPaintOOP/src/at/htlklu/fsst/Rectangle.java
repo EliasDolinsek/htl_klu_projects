@@ -1,5 +1,7 @@
 package at.htlklu.fsst;
 
+import java.awt.Graphics2D;
+
 public class Rectangle extends Shape {
 
     private double width, height;
@@ -39,4 +41,13 @@ public class Rectangle extends Shape {
     public String toString() {
         return getClass().getSimpleName() + ": id: " + getId() + ", Area: " + getArea() + ", Circumference: " + getCircumference() + ", size [" + getWidth() + "/" + getHeight() + "]";
     }
+
+	@Override
+	public void paint(Graphics2D graphics) {
+		final int startX = (int) (getPosition().x - getWidth() / 2);
+		final int startY = (int) (getPosition().y - getHeight() / 2);
+		
+		graphics.setColor(getColor());
+		graphics.drawRect(startX, startY, (int) getWidth(), (int) getHeight());
+	}
 }

@@ -1,15 +1,19 @@
 package at.htlklu.fsst;
 
-public abstract class Shape {
+import java.io.Serializable;
+
+import at.htlklu.fsst.presentation.PaintableThing;
+
+public abstract class Shape extends PaintableThing implements Serializable, Comparable<Shape> {
 
     public static final int DEFAULT_SIZE = 100;
 
-    private static int lastId = 0;
+    private static int idCount = 0;
     private int id;
 
     public Shape() {
-        id = lastId;
-        lastId++;
+        id = idCount;
+        idCount++;
     }
 
     public int getId() {
@@ -19,5 +23,15 @@ public abstract class Shape {
     public abstract double getArea();
 
     public abstract double getCircumference();
+    
+    @Override
+    public int compareTo(Shape o) {
+    	int areaCompareResult = Double.compare(this.getArea(), o.getArea());
+    	if(areaCompareResult == 0) {
+    		return Double.compare(this.getCircumference(), o.getCircumference());
+    	} else {
+    		return areaCompareResult;
+    	}
+    }
 
 }

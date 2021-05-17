@@ -1,5 +1,8 @@
 package at.htlklu.fsst;
 
+import java.awt.Graphics2D;
+import java.awt.Point;
+
 public class Circle extends Shape {
 
     private double radius;
@@ -38,4 +41,16 @@ public class Circle extends Shape {
     public String toString() {
         return "Circle: id: " + getId() + ", Area: " + getArea() + ", Circumference: " + getCircumference() + ", radius [" + getRadius() + "]";
     }
+
+	@Override
+	public void paint(Graphics2D graphics) {
+		final int size = (int) (getRadius() * 2);
+		
+		final int startX = (int) (getPosition().x - getRadius());
+		final int startY = (int) (getPosition().y - getRadius());
+		
+		graphics.setColor(getColor());
+		graphics.drawOval(startX, startY, size, size);
+		
+	}
 }
