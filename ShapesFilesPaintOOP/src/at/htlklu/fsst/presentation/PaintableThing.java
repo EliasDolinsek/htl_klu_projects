@@ -8,14 +8,16 @@ public abstract class PaintableThing implements Paintable {
 
 	private Point position;
 	private Color color;
+	private boolean isFilled;
 	
-	public PaintableThing(Point position, Color color) {
+	public PaintableThing(Point position, Color color, boolean isFilled) {
 		this.position = position;
 		this.color = color;
+		this.isFilled = isFilled;
 	}
 	
 	public PaintableThing() {
-		this(new Point(0, 0), Color.BLACK);
+		this(new Point(0, 0), Color.BLACK, false);
 	}
 
 
@@ -36,6 +38,16 @@ public abstract class PaintableThing implements Paintable {
 	@Override
 	public void setColor(Color color) {
 		this.color = color;
-	}	
+	}
+	
+	@Override
+	public void setFilled(boolean filled) {
+		this.isFilled = filled;
+	}
+	
+	@Override
+	public boolean isFilled() {
+		return isFilled;
+	}
 	
 }

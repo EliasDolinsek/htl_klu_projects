@@ -50,7 +50,11 @@ public class Circle extends Shape {
 		final int startY = (int) (getPosition().y - getRadius());
 		
 		graphics.setColor(getColor());
-		graphics.drawOval(startX, startY, size, size);
+		if(isFilled()) {
+			graphics.fillOval(startX, startY, size, size);
+		} else {
+			graphics.drawOval(startX, startY, size, size);	
+		}
 		
 	}
 }

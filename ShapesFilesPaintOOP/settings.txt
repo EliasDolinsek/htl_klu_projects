@@ -1,0 +1,3 @@
+at.htlklu.fsst.Circle blue
+at.htlklu.fsst.Rectangle red filled
+at.htlklu.fsst.Square green

@@ -8,15 +8,18 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import at.htlklu.fsst.Settings;
 import at.htlklu.fsst.Shape;
 import at.htlklu.fsst.ShapeTool;
 
 public class ShapePanel extends JPanel implements MouseListener {
 
 	private List<Shape> shapes;
+	private final List<Settings> settings;
 
 	public ShapePanel() {
 		addMouseListener(this);
+		this.settings = ShapeTool.readSettings("settings.txt");
 	}
 
 	@Override
@@ -31,7 +34,7 @@ public class ShapePanel extends JPanel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		shapes = ShapeTool.generateRandomShapes(30);
-		ShapeTool.setPositionAndColors(shapes, getWidth(), getHeight());
+		ShapeTool.setPositionAndColors(settings, shapes, getWidth(), getHeight());
 		repaint();
 	}
 

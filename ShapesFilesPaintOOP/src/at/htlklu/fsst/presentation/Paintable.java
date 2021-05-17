@@ -10,4 +10,6 @@ public interface Paintable {
 	public void setColor(Color color);
 	public Color getColor();
 	public void setPosition(Point pint);
+	public void setFilled(boolean filled);
+	public boolean isFilled();
 }
