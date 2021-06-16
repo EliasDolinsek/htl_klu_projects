@@ -16,7 +16,7 @@ public class MainPanel extends JPanel implements OnColorChanged{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(displayColor);
-		g.drawRect(0, 0, getWidth(), getHeight());
+		g.fillRect(0, 0, getWidth(), getHeight());
 	}
 
 	public void onColorChanged(MqttColor color) {

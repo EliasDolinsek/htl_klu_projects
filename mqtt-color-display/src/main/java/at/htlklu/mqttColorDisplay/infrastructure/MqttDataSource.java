@@ -14,7 +14,7 @@ import at.htlklu.mqttColorDisplay.domain.OnColorChanged;
 public class MqttDataSource implements Runnable, MqttCallback {
 	
 	private static final String BROKER = "tcp://iotmqtt.htl-klu.at:1883";
-	private static final String CLIENT_ID = "JavaSample";
+	private static final String CLIENT_ID = "mqtt_dolinsek";
 	
 	private OnColorChanged onColorChanged;
 	
@@ -53,7 +53,9 @@ public class MqttDataSource implements Runnable, MqttCallback {
 		if(messageAsStr.equals("red")) {
 			onColorChanged.onColorChanged(MqttColor.RED);
 		} else if(messageAsStr.equals("green")) {
-			
+			onColorChanged.onColorChanged(MqttColor.GREEN);
+		} else if(messageAsStr.equals("blue")){
+			onColorChanged.onColorChanged(MqttColor.BLUE);
 		}
 		
 	}
