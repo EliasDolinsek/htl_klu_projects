@@ -1,0 +1,18 @@
+Surname;Firstname;Dateofbirth;Weight;Height;Sex;Topic;Country
+Brandic;Ivona;23.12.1977;61.50;172;w;Computer Science;AUT
+Fano;Gino;05.01.1871;75.50;178;m;Computer Science;ITA
+Fano;Roberto;11.11.1917;65.50;179;m;Computer Science;USA
+Fano;Ugo;28.07.1912;85.50;177;m;Computer Science;USA
+Hamming;Richard;11.02.1915;80.50;187;m;Computer Science;USA
+Hoare;Tony;11.01.1934;65.50;162;m;Computer Science;GBR
+Huffman;David A.;09.08.1925;70.50;169;m;Computer Science;USA
+Knuth;Donald E.;10.01.1938;70.50;170;m;Computer Science;USA
+Mayer;Marissa;30.05.1975;68.50;168;w;Computer Science;USA
+Raymond;Jade;28.08.1975;65.50;171;w;Computer Science;CAN
+Schieferdecker;Ina;01.01.1967;63.50;168;w;Computer Science;GER
+Shannon;Claude;30.04.1916;60.50;175;m;Computer Science;USA
+Tanenbaum;Andrew S.;16.03.1944;70.50;185;m;Computer Science;NLD
+Turing;Alan;23.06.1912;70.50;162;m;Computer Science;GBR
+Weizenbaum;Joseph;08.01.1923;85.50;192;m;Computer Science;USA
+Wirth;Niklaus;15.02.1934;75.50;172;m;Computer Science;CHE
+Zuse;Konrad;22.06.1910;80.50;182;m;Computer Science;GER

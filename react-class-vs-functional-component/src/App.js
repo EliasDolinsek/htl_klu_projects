@@ -1,29 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
-import {useState} from "react";
+import React, {useState} from "react";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ClassComponent />
+      <FunctionalComponent />
     </div>
   );
 }
 
-class ClassComponent
+class ClassComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {count: 0}
+  }
+
+  render() {
+    return <div>
+      <h1>{this.state.count}</h1>
+      <button onClick={() => {
+        this.setState({count: this.state.count + 1})
+      }}>+</button>
+      <button onClick={() => {
+        this.setState({count: this.state.count - 1})
+      }}>-</button>
+    </div>
+  }
+}
 
 function FunctionalComponent(){
   const [count, setCount] = useState(0)
@@ -31,7 +35,7 @@ function FunctionalComponent(){
   return <div>
     <h1>{count}</h1>
     <button onClick={() => {setCount(count + 1)}}>+</button>
-    <button onClick={() => {setCount(count - 1)}}>+</button>
+    <button onClick={() => {setCount(count - 1)}}>-</button>
   </div>
 }
 
